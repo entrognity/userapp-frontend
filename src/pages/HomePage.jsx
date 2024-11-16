@@ -13,7 +13,7 @@ const HomePage = () => {
             <p className="text-sm text-gray-600">Start a new print order now</p>
             <button 
               className="mt-2 px-4 py-2 bg-blue-600 text-white rounded-lg"
-              onClick={() => navigate('/book')}
+              onClick={() => navigate('/services')}
             >
               Book Service
             </button>

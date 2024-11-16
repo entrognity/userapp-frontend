@@ -415,7 +415,7 @@ import SpiralBindingForm from '../components/ServiceForms/SpiralBindingForm';
 import ThermalBindingForm from '../components/ServiceForms/ThermalBindingForm';
 import FileUpload from '../components/ServiceForms/FileUpload';
 import { useAlert } from '../contexts/AlertContext';
-import { uploadFilesToPinata } from '../utils/pinata';
+import { uploadFilesToPinata, deleteFilesFromPinata } from '../utils/pinata';
 import { useEdit } from '../contexts/EditContext';
 
 const BookServicePage = () => {
@@ -521,7 +521,7 @@ const BookServicePage = () => {
             console.log('old data: ', updatedFormData);
 
             // remoce files cids later
-            const { updatedFiles } = await processEditFiles(updatedFormData.files, updatedFormData.filesDetails);
+            const { updatedFiles, removeFilesCIDs } = await processEditFiles(updatedFormData.files, updatedFormData.filesDetails);
 
 
             updatedFormData.filesDetails = updatedFiles;
@@ -547,7 +547,7 @@ const BookServicePage = () => {
             }
             const result = await response.json();
             console.log('Article updated successfully:', result);
-            return result;
+            return {result, removeFilesCIDs};
         } catch (error) {
             console.error('Error updating article:', error);
             throw error;
@@ -567,8 +567,10 @@ const BookServicePage = () => {
             }));
 
             updatedFormData.filesDetails = filesDetails;
-            delete updatedFormData.files;
             updatedFormData.filesUri = fileCIDs;
+            delete updatedFormData.files;
+            
+            console.log('sent data: ', updatedFormData);
 
             const response = await fetch(`${process.env.REACT_APP_BASEURL}/api/v1/cart/addToCart`, {
                 method: 'POST',
@@ -622,10 +624,15 @@ const BookServicePage = () => {
                 const updatedFormData = {
                     ...formData
                 };
-                await submitEditForm(updatedFormData);
+                const {result, removeFilesCIDs} = await submitEditForm(updatedFormData);
+                console.log(result);
+                if(!result){
+                    return console.error('Error updating form:');
+                }
                 setFormData({});
                 form.reset();
                 navigate('/cart');
+                await deleteFilesFromPinata(removeFilesCIDs);
             } else {
                 // Build updatedFormData
                 const updatedFormData = {
@@ -634,7 +641,10 @@ const BookServicePage = () => {
                     articleType: servicesComponents[selectedService]?.articleType,
                 };
 
-                await submitForm(updatedFormData);
+                const submittedFormResult = await submitForm(updatedFormData);
+                if(!submittedFormResult){
+                    return console.error('Error submitting form');
+                }
                 setFormData({});
                 form.reset();
                 setShowModal(true);

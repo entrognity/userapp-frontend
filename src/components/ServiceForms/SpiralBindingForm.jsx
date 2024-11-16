@@ -217,7 +217,11 @@ const SpiralBindingForm = ({ formData, handleInputChange }) => {
           type="number"
           id="noOfCopies"
           name="noOfCopies"
+          min={1}
           value={formData.noOfCopies}
+          onInput={(e) => {
+            if (e.target.value < 1) e.target.value = 1; // Auto-correct to minimum value
+          }}
           onChange={handleInputChange}
           className="w-full border rounded px-3 py-2"
           placeholder="Enter number of copies"

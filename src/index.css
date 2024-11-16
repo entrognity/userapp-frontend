@@ -43,3 +43,12 @@
 @keyframes spin {
   to { transform: rotate(360deg); }
 }
+
+.service-card {
+  border-radius: 16px;
+}
+
+.service-image img {
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+}

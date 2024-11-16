@@ -18,3 +18,30 @@ const AccountPage = () => {
   };
 
 export default AccountPage;
+
+
+
+
+// import { useLocation, useNavigate } from 'react-router-dom';
+
+// const AddressPage = () => {
+//   const location = useLocation();
+//   const navigate = useNavigate();
+
+//   const returnTo = location.state?.returnTo || '/'; // Default to home if returnTo is not provided
+
+//   const handleAddressSave = () => {
+//     // Logic to save the address
+//     navigate(returnTo); // Navigate back to the delivery page
+//   };
+
+//   return (
+//     <div>
+//       <h2>Add or Update Address</h2>
+//       {/* Form for adding address */}
+//       <button onClick={handleAddressSave}>Save Address</button>
+//     </div>
+//   );
+// };
+
+// export default AddressPage;

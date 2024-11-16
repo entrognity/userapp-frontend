@@ -9,7 +9,7 @@ export const useCart = () => useContext(CartContext);
 export const CartProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState([]);
   console.log('cartitems: ', cartItems);
-  const totalPrice = cartItems.reduce((total, item) => total + item.articleAmount, 0);
+  const totalPrice = cartItems ? cartItems.reduce((total, item) => total + item.articleAmount || 0, 0) : 0;
 
   const fetchCartItems = useCallback(async () => {
     try {
@@ -30,14 +30,16 @@ export const CartProvider = ({ children }) => {
     }
   }, []);
 
-  // const removeItemFromCart = async (itemId) => {
-  //   try {
-  //     await axios.delete(`/api/cart/${itemId}`);
-  //     setCartItems((prevItems) => prevItems.filter((item) => item.id !== itemId));
-  //   } catch (error) {
-  //     console.error('Failed to remove item from cart:', error);
-  //   }
-  // };
+  const removeItemFromCart = async (itemId) => {
+    try {
+      // handle response fpr delete 
+      await axios.delete(`${process.env.REACT_APP_BASEURL}/api/v1/cart/deleteCartItem?userID=7993924730&articleID=${itemId}`);
+
+      setCartItems((prevItems) => prevItems.filter((item) => item.articleID !== itemId));
+    } catch (error) {
+      console.error('Failed to remove item from cart:', error);
+    }
+  };
 
   // Populate with dummy data
   // const fetchCartItems = useCallback(() => {
@@ -87,12 +89,12 @@ export const CartProvider = ({ children }) => {
   //   setCartItems(dummyData);
   // }, []);
 
-  const removeItemFromCart = (itemId) => {
-    setCartItems((prevItems) => prevItems.filter((item) => item.id !== itemId));
-  };
+  // const removeItemFromCart = (itemId) => {
+  //   setCartItems((prevItems) => prevItems.filter((item) => item.id !== itemId));
+  // };
 
   return (
-    <CartContext.Provider value={{ cartItems, totalPrice, fetchCartItems, removeItemFromCart }}>
+    <CartContext.Provider value={{ cartItems, setCartItems, totalPrice, fetchCartItems, removeItemFromCart }}>
       {children}
     </CartContext.Provider>
   );
