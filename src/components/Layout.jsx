@@ -20,11 +20,18 @@ const Layout = ({ children }) => {
   const renderHeader = () => (
     <div className="fixed top-0 w-full bg-white shadow-md z-50">
       <div className="flex justify-between items-center p-4">
-        <h1 className="text-xl font-bold" onClick={() => {
+        {/* <h1 className="text-xl font-bold" onClick={() => {
           navigate('/')
         }}>
           PinPaper
-        </h1>
+        </h1> */}
+        <img
+          src="/logo.png"
+          alt="PinPaper.in"
+          className="h-7 w-auto cursor-pointer"
+          onClick={() => navigate('/')}
+        />
+
         <div className="flex gap-4">
           <div className="relative">
             <ShoppingCart

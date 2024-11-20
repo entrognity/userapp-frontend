@@ -11,6 +11,17 @@ const OrdersPage = () => {
   const { setEditItem } = useEdit();
   const navigate = useNavigate();
 
+  const servicesComponents = {
+    1: {
+      name: 'Spiral Binding',
+      articleType: 'spiralBindingUsrs'
+    },
+    2: {
+      name: 'Thermal Binding',
+      articleType: 'thermalBinding'
+    },
+  };
+
   useEffect(() => {
     fetchCartItems();
   }, [fetchCartItems]);
@@ -23,7 +34,7 @@ const OrdersPage = () => {
 
   return (
     <div className="mt-16 p-4">
-      <h2 className="text-xl font-semibold mb-4">Your Cart</h2>
+      <h2 className="text-xl font-semibold mb-4">Your Orders</h2>
 
       {cartItems.length > 0 ? (
         <div className="space-y-4">
@@ -41,7 +52,7 @@ const OrdersPage = () => {
                 {/* Middle Section: File Details */}
                 <div className="flex-grow">
                   {/* Service Name */}
-                  <p className="text-lg font-medium text-gray-900">{item.name}</p>
+                  <p className="text-lg font-medium text-gray-900">{servicesComponents[item.serviceID].name}</p>
 
                   {/* File Details */}
                   <p className="text-gray-700">
@@ -59,7 +70,7 @@ const OrdersPage = () => {
               </div>
 
               {/* Bottom Section: Edit and Delete buttons */}
-              <div className="flex border-t-2 border-gray-300 divide-x-2 divide-gray-300">
+              {/* <div className="flex border-t-2 border-gray-300 divide-x-2 divide-gray-300">
                 <button
                   type="button"
                   onClick={() => handleEditItemClick(item)}
@@ -76,7 +87,7 @@ const OrdersPage = () => {
                   <Trash2 className="w-6 h-6 mr-1" />
                   Delete
                 </button>
-              </div>
+              </div> */}
             </div>
           ))}
         </div>

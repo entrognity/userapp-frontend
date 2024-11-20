@@ -201,7 +201,7 @@
 //         </div>
 //       )}
 
-      
+
 //     </div>
 //   );
 // };
@@ -226,13 +226,24 @@ import { FileText, Trash2, FilePenLine } from 'lucide-react';
 
 const CartPage = () => {
   // const { showAlert } = useAlert();
-  const { cartItems, setCartItems,  totalPrice, fetchCartItems, removeItemFromCart } = useCart();
+  const { cartItems, setCartItems, totalPrice, fetchCartItems, removeItemFromCart } = useCart();
   const { setEditItem } = useEdit();
-  
+
   const [callBeforePrint, setCallBeforePrint] = useState(false);
   const [orderData, setOrderData] = useState({});
   // const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+
+  const servicesComponents = {
+    1: {
+      name: 'Spiral Binding',
+      articleType: 'spiralBindingUsrs'
+    },
+    2: {
+      name: 'Thermal Binding',
+      articleType: 'thermalBinding'
+    },
+  };
 
   useEffect(() => {
     fetchCartItems();
@@ -265,7 +276,7 @@ const CartPage = () => {
     // setLoading(true);
 
     console.log(orderData);
-    navigate('/delivery', { state: {  cartItems, totalPrice } });
+    navigate('/delivery', { state: { orderData } });
 
     // try {
     //   const response = await fetch(`${process.env.REACT_APP_BASEURL}/api/v1/orders/submitOrder`, {
@@ -280,10 +291,10 @@ const CartPage = () => {
     //     const data = await response.json();
     //     console.log("Order Submitted Successfully:", data);
     //     // setCartItems([]);
-        
+
     //     // move to address and delivery opions selection
     //     navigate('/delivery', { state: {  cartItems, totalPrice } });
-        
+
     //     // next navigation
     //     // navigate('/order-success', { state: { orderId: data.orderId } });
     //   } else {
@@ -314,6 +325,7 @@ const CartPage = () => {
                   <FileText className="w-8 h-8 text-blue-600" />
                 </div>
                 <div className="flex-grow">
+                  <p className="text-lg font-medium text-gray-900">{servicesComponents[item.serviceID].name}</p>
                   <p className="text-lg font-medium text-gray-900">{item.name}</p>
                   <p className="text-gray-700">
                     File(s): {item.files.map((file, index) => (
@@ -381,7 +393,7 @@ const CartPage = () => {
           </div>
 
           <div className="mt-4 flex justify-center">
-          <button 
+            <button
               onClick={submitOrder}
               className={`w-full bg-blue-600 text-white px-4 py-2 rounded-lg shadow-lg hover:bg-blue-700 transition duration-150`}
             >

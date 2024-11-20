@@ -70,7 +70,7 @@
 //   return (
 //     <div className="mt-16 p-4">
 //       <h2 className="text-xl font-semibold mb-4">Delivery and Address Selection</h2>
-      
+
 //       {/* Address Section */}
 //       <div className="mb-8">
 //         <h3 className="text-lg font-medium text-gray-800 mb-2">Your Address</h3>
@@ -281,10 +281,153 @@
 
 
 
+// import React, { useEffect, useState } from 'react';
+// import { useLocation, useNavigate } from 'react-router-dom';
+// import { useUser } from '../contexts/UserContext';
+// import { useAlert } from '../contexts/AlertContext';
+
+// const DeliveryPage = () => {
+//   const location = useLocation();
+//   const navigate = useNavigate();
+//   const { showAlert } = useAlert();
+//   const { user, fetchUserAddress } = useUser();
+
+//   const { cartItems = [], totalPrice: initialTotalPrice = 0 } = location.state || {};
+//   const [address, setAddress] = useState(null);
+//   const [selectedDeliveryOption, setSelectedDeliveryOption] = useState(null);
+//   const [deliveryOptions] = useState([
+//     { label: 'Standard Delivery', priceModifier: 0, description: '3-5 business days' },
+//     { label: 'Express Delivery', priceModifier: 50, description: '1-2 business days' },
+//     { label: 'Overnight Delivery', priceModifier: 100, description: 'Next business day' },
+//   ]);
+//   const [totalPrice, setTotalPrice] = useState(initialTotalPrice);
+
+//   useEffect(() => {
+//     const fetchAddress = async () => {
+//       const userAddress = await fetchUserAddress();
+//       setAddress(userAddress);
+//     };
+//     fetchAddress();
+//   }, [fetchUserAddress]);
+
+//   useEffect(() => {
+//     if (selectedDeliveryOption) {
+//       setTotalPrice(initialTotalPrice + selectedDeliveryOption.priceModifier);
+//     }
+//   }, [selectedDeliveryOption, initialTotalPrice]);
+
+//   const handleAddAddress = () => {
+//     navigate('/account/address', { state: { returnTo: '/delivery' } });
+//   };
+
+//   const handleDeliveryOptionChange = (option) => {
+//     setSelectedDeliveryOption(option);
+//   };
+
+//   const handleMakePayment = () => {
+//     if (!address) {
+//       showAlert("Please add an address before proceeding to payment.", "error");
+//       return;
+//     }
+
+//     navigate('/payment', {
+//       state: { cartItems, totalPrice, selectedDeliveryOption },
+//     });
+//   };
+
+//   return (
+//     <div className="w-full bg-white mt-16 p-4 rounded-lg shadow-lg">
+//       <h2 className="text-2xl font-bold mb-6">Delivery and Address</h2>
+
+//       {/* Address Section */}
+//       <div className="mb-8">
+//         <h3 className="text-lg font-semibold text-gray-800 mb-2">Your Address</h3>
+//         {address ? (
+//             <div className="text-gray-700 bg-gray-100 p-4 rounded-md">
+//               <p>{`${address.userMobNumber}, ${address.userStreet}, ${address.userLandmark}`}</p>
+//               <p>{`${address.userCity}, ${address.userState}, ${address.userPincode}`}</p>
+//             </div>
+//         ) : (
+//           <div className="text-gray-600">
+//             No address found. <button onClick={handleAddAddress} className="text-blue-600 hover:text-blue-800 underline font-medium">Add Address</button>
+//           </div>
+//         )}
+
+//       </div>
+
+//       {/* Cart Summary */}
+//       <div className="mb-8">
+//         <h3 className="text-lg font-semibold text-gray-800 mb-2">Cart Summary</h3>
+//         <div className="space-y-4">
+//           {cartItems.map((item) => (
+//             <div key={item.id} className="p-4 bg-gray-100 rounded-md flex justify-between">
+//               <div className="text-gray-700">
+//                 {item.files.map((file, index) => (
+//                   <span key={index}>{file.name}</span>
+//                 )).reduce((prev, curr) => [prev, <span className="text-blue-600 font-semibold"> <br /> </span>, curr])}
+
+//               </div>
+//               <div className="text-gray-800 font-medium">
+//                 {/* - {item.noOfCopies} x =  */}
+//                 ₹{item.articleAmount.toFixed(2)}
+//               </div>
+//             </div>
+//           ))}
+//         </div>
+//       </div>
+
+//       {/* Delivery Options */}
+//       <div className="mb-8">
+//         <h3 className="text-lg font-semibold text-gray-800 mb-2">Select Delivery Option</h3>
+//         <div className="space-y-4">
+//           {deliveryOptions.map((option, index) => (
+//             <div
+//               key={index}
+//               className={`flex justify-between p-4 rounded-md cursor-pointer ${selectedDeliveryOption?.label === option.label ? 'bg-blue-50 border-2 border-blue-600' : 'bg-gray-100 border-2 border-transparent hover:bg-gray-200'}`}
+//               onClick={() => handleDeliveryOptionChange(option)}
+//             >
+//               <div>
+//                 <p className="font-semibold text-gray-900">{option.label}</p>
+//                 <p className="text-sm text-gray-700">{option.description}</p>
+//               </div>
+//               <div>
+//                 <p className="text-sm text-gray-800 font-medium">+ ₹{option.priceModifier.toFixed(2)}</p>
+//               </div>
+
+//             </div>
+
+//           ))}
+//         </div>
+//       </div>
+
+//       {/* Total Price and Make Payment */}
+//       <div className="mt-8 border-t-2 border-gray-200 pt-4">
+//         <div className="flex justify-between text-lg font-semibold text-gray-800 mb-4">
+//           <p>Total:</p>
+//           <p>₹{totalPrice.toFixed(2)}</p>
+//         </div>
+//         <button
+//           onClick={handleMakePayment}
+//           className="w-full bg-blue-600 text-white px-4 py-3 rounded-md shadow-lg hover:bg-blue-700 transition duration-150"
+//         >
+//           Make Payment
+//         </button>
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default DeliveryPage;
+
+
+
+
+
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useUser } from '../contexts/UserContext';
 import { useAlert } from '../contexts/AlertContext';
+import { MapPin, FileText } from 'lucide-react';
 
 const DeliveryPage = () => {
   const location = useLocation();
@@ -292,23 +435,43 @@ const DeliveryPage = () => {
   const { showAlert } = useAlert();
   const { user, fetchUserAddress } = useUser();
 
-  const { cartItems = [], totalPrice: initialTotalPrice = 0 } = location.state || {};
-  const [address, setAddress] = useState(null);
+  const { orderData } = location.state || {};
+  const { items: cartItems = [], totalPrice: initialTotalPrice = 0 } = orderData || {};
+  const [addresses, setAddresses] = useState([]);
+  const [selectedAddress, setSelectedAddress] = useState(null);
   const [selectedDeliveryOption, setSelectedDeliveryOption] = useState(null);
+  const [loading, setLoading] = useState(false);
   const [deliveryOptions] = useState([
-    { label: 'Standard Delivery', priceModifier: 0, description: '3-5 business days' },
-    { label: 'Express Delivery', priceModifier: 50, description: '1-2 business days' },
-    { label: 'Overnight Delivery', priceModifier: 100, description: 'Next business day' },
+    { label: 'Standard Delivery', deliveryTypeID: "DT1", priceModifier: 0, description: '3-5 business days' },
+    { label: 'Express Delivery', deliveryTypeID: "DT2", priceModifier: 50, description: '1-2 business days' },
+    { label: 'Overnight Delivery', deliveryTypeID: "DT3", priceModifier: 100, description: 'Next business day' },
   ]);
   const [totalPrice, setTotalPrice] = useState(initialTotalPrice);
 
+  const servicesComponents = {
+    1: {
+      name: 'Spiral Binding',
+      articleType: 'spiralBindingUsrs'
+    },
+    2: {
+      name: 'Thermal Binding',
+      articleType: 'thermalBinding'
+    },
+  };
+
   useEffect(() => {
-    const fetchAddress = async () => {
-      const userAddress = await fetchUserAddress();
-      const formattedAddress = `${userAddress.userMobNumber}, ${userAddress.userStreet}, ${userAddress.userLandmark}, ${userAddress.userCity}, ${userAddress.userState}, ${userAddress.userPincode}`;
-      setAddress(formattedAddress);
+    console.log(orderData);
+  }, [orderData])
+
+  useEffect(() => {
+    const fetchAddresses = async () => {
+      const userAddresses = await fetchUserAddress();
+      setAddresses(userAddresses);
+      if (userAddresses.length > 0) {
+        setSelectedAddress(userAddresses[0]); // Default to the first address
+      }
     };
-    fetchAddress();
+    fetchAddresses();
   }, [fetchUserAddress]);
 
   useEffect(() => {
@@ -317,7 +480,7 @@ const DeliveryPage = () => {
     }
   }, [selectedDeliveryOption, initialTotalPrice]);
 
-  const handleAddAddress = () => {
+  const handleAddOrEditAddress = () => {
     navigate('/account/address', { state: { returnTo: '/delivery' } });
   };
 
@@ -325,45 +488,131 @@ const DeliveryPage = () => {
     setSelectedDeliveryOption(option);
   };
 
-  const handleMakePayment = () => {
-    if (!address) {
-      showAlert("Please add an address before proceeding to payment.", "error");
+  const handleMakePayment = async () => {
+    if (!selectedAddress) {
+      showAlert("Please select an address before proceeding to payment.", "error");
       return;
     }
 
-    navigate('/payment', {
-      state: { cartItems, totalPrice, selectedDeliveryOption },
-    });
+    if (!selectedDeliveryOption) {
+      showAlert("Please select a delivery option before proceeding to payment.", "error");
+      return;
+    }
+
+    setLoading(true);
+
+    // Prepare the payload
+    const payload = {
+      // cartItems,
+      // totalPrice,
+      ...orderData,
+      selectedAddress,
+      deliveryOption: selectedDeliveryOption,
+    };
+    console.log('payload: ',payload);
+    
+    try {
+      const response = await fetch(`${process.env.REACT_APP_BASEURL}/api/v1/orders/submitOrder`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        console.log("Order Submitted Successfully:", data);
+
+        // next navigation
+        // navigate('/order-success', { state: { orderId: data.orderId } });
+      } else {
+        console.error("Order Submission Failed:", response.statusText);
+        showAlert('There was an issue with your order submission. Please try again.', 'error');
+      }
+    } catch (error) {
+      console.error("Error Submitting Order:", error);
+      showAlert('There was an error processing your order. Please try again later.', 'error');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
-    <div className="bg-white md:max-w-xl mx-auto mt-8 p-6 rounded-lg shadow-lg">
+    <div className="w-full bg-white mt-16 p-4 rounded-lg shadow-lg">
       <h2 className="text-2xl font-bold mb-6">Delivery and Address</h2>
-      
+
       {/* Address Section */}
       <div className="mb-8">
-        <h3 className="text-lg font-semibold text-gray-800 mb-2">Your Address</h3>
-        {address ? (
-          <p className="text-gray-700 bg-gray-100 p-4 rounded-md">{address}</p>
+        <h3 className="text-lg font-semibold text-gray-800 mb-4">Select Address</h3>
+        {addresses.length > 0 ? (
+          <div className="space-y-4">
+            {addresses.map((addr, index) => (
+              <div
+                key={index}
+                className={`flex items-center p-3 rounded-md cursor-pointer border-2 transition-all duration-200 ${selectedAddress?.userPincode === addr.userPincode
+                  ? 'bg-blue-50 border-blue-600'
+                  : 'bg-gray-100 border-transparent hover:bg-gray-200'
+                  }`}
+                onClick={() => setSelectedAddress(addr)}
+              >
+                {/* Icon Section */}
+                <div className="flex-shrink-0 mr-4 text-blue-600">
+                  <MapPin />
+                </div>
+
+                {/* Address Content */}
+                <div className="flex-grow text-gray-700">
+                  <p className="text-sm font-medium">
+                    {`${addr.userMobNumber}, ${addr.userStreet}, ${addr.userLandmark}`}
+                  </p>
+                  <p className="text-sm font-medium">
+                    {`${addr.userCity}, ${addr.userState}, ${addr.userPincode}`}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
         ) : (
-          <div className="text-gray-600">
-            No address found. <button onClick={handleAddAddress} className="text-blue-600 hover:text-blue-800 underline font-medium">Add Address</button>
+          <div className="text-gray-600 text-center">
+            No address found. <br />
+            Please add an address by clicking the button below.
           </div>
         )}
+
+        {/* Add/Edit Button */}
+        <button
+          onClick={handleAddOrEditAddress}
+          className="mt-4 px-6 py-2 bg-blue-600 text-white font-medium rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+        >
+          Add/Edit Address
+        </button>
       </div>
+
 
       {/* Cart Summary */}
       <div className="mb-8">
         <h3 className="text-lg font-semibold text-gray-800 mb-2">Cart Summary</h3>
         <div className="space-y-4">
           {cartItems.map((item) => (
-            <div key={item.id} className="p-4 bg-gray-100 rounded-md">
-              <p className="text-gray-700">
-                {item.files.map((file, index) => (
-                  <span key={index}>{file.name}</span>
-                )).reduce((prev, curr) => [prev, <span className='text-blue-600 font-semibold'> | </span>, curr])}
-                - {item.noOfCopies} x ₹{item.articleAmount.toFixed(2)}
-              </p>
+            <div key={item.id} className="p-4 bg-gray-100 rounded-md flex justify-between">
+              <div>
+                <p className='text-gray-700 font-semibold'>{
+                  servicesComponents[item.serviceID].name}
+                </p>
+                <div className="text-gray-700">
+                  {item.files
+                    .map((file, index) => <span key={index}>- {file.name}</span>)
+                    .reduce((prev, curr) => [
+                      prev,
+                      <p className="text-blue-600 font-medium"> <br /> </p>,
+                      curr,
+                    ])}
+                </div>
+              </div>
+              <div className="text-gray-800 font-semibold">
+                ₹{item.articleAmount.toFixed(2)}
+              </div>
             </div>
           ))}
         </div>
@@ -374,14 +623,21 @@ const DeliveryPage = () => {
         <h3 className="text-lg font-semibold text-gray-800 mb-2">Select Delivery Option</h3>
         <div className="space-y-4">
           {deliveryOptions.map((option, index) => (
-            <div 
-              key={index} 
-              className={`p-4 rounded-md cursor-pointer ${selectedDeliveryOption?.label === option.label ? 'bg-blue-50 border-2 border-blue-600' : 'bg-gray-100 border-2 border-transparent hover:bg-gray-200'}`}
+            <div
+              key={index}
+              className={`flex justify-between p-4 rounded-md cursor-pointer ${selectedDeliveryOption?.label === option.label
+                ? 'bg-blue-50 border-2 border-blue-600'
+                : 'bg-gray-100 border-2 border-transparent hover:bg-gray-200'
+                }`}
               onClick={() => handleDeliveryOptionChange(option)}
             >
-              <p className="font-semibold text-gray-900">{option.label}</p>
-              <p className="text-sm text-gray-700">{option.description}</p>
-              <p className="text-sm text-gray-800 font-medium">+ ₹{option.priceModifier.toFixed(2)}</p>
+              <div>
+                <p className="font-semibold text-gray-900">{option.label}</p>
+                <p className="text-sm text-gray-700">{option.description}</p>
+              </div>
+              <div>
+                <p className="text-sm text-gray-800 font-medium">+ ₹{option.priceModifier.toFixed(2)}</p>
+              </div>
             </div>
           ))}
         </div>
@@ -393,7 +649,7 @@ const DeliveryPage = () => {
           <p>Total:</p>
           <p>₹{totalPrice.toFixed(2)}</p>
         </div>
-        <button 
+        <button
           onClick={handleMakePayment}
           className="w-full bg-blue-600 text-white px-4 py-3 rounded-md shadow-lg hover:bg-blue-700 transition duration-150"
         >
