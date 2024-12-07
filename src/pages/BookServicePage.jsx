@@ -417,6 +417,7 @@ import FileUpload from '../components/ServiceForms/FileUpload';
 import { useAlert } from '../contexts/AlertContext';
 import { uploadFilesToPinata, deleteFilesFromPinata } from '../utils/pinata';
 import { useEdit } from '../contexts/EditContext';
+import Api from '../Api';
 
 const BookServicePage = () => {
     const { showAlert } = useAlert();
@@ -536,16 +537,18 @@ const BookServicePage = () => {
 
             console.log('new data: ', updatedFormData);
 
-            const response = await fetch(`${process.env.REACT_APP_BASEURL}/api/v1/cart/updateCartItem`, {
-                method: 'PUT',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(updatedFormData),
-            });
+            // const response = await fetch(`${process.env.REACT_APP_BASEURL}/api/v1/cart/updateCartItem`, {
+            //     method: 'PUT',
+            //     headers: { 'Content-Type': 'application/json' },
+            //     body: JSON.stringify(updatedFormData),
+            // });
 
-            if (!response.ok) {
+            const response = await Api.put(`/api/v1/cart/updateCartItem`, updatedFormData);
+
+            if (response.status !== 200) {
                 throw new Error('Failed to update the article.');
             }
-            const result = await response.json();
+            const result = await response.data;
             console.log('Article updated successfully:', result);
             return {result, removeFilesCIDs};
         } catch (error) {
@@ -572,16 +575,18 @@ const BookServicePage = () => {
             
             console.log('sent data: ', updatedFormData);
 
-            const response = await fetch(`${process.env.REACT_APP_BASEURL}/api/v1/cart/addToCart`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(updatedFormData),
-            });
+            // const response = await fetch(`${process.env.REACT_APP_BASEURL}/api/v1/cart/addToCart`, {
+            //     method: 'POST',
+            //     headers: { 'Content-Type': 'application/json' },
+            //     body: JSON.stringify(updatedFormData),
+            // });
 
-            if (!response.ok) {
+            const response = await Api.post(`/api/v1/cart/addToCart`, updatedFormData);
+
+            if (response.status !== 200) {
                 throw new Error('Failed to submit the article.');
             }
-            const result = await response.json();
+            const result = await response.data;
             console.log('Article added successfully:', result);
             return result;
         } catch (error) {

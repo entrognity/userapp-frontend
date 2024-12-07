@@ -83,7 +83,7 @@ const ServicesPage = () => {
             {/* Details Section */}
             <div className="p-4 bg-gradient-to-r from-gray-50 to-gray-100">
               <h3 className="text-lg font-semibold text-gray-800">{service.name}</h3>
-              <p className="text-gray-600 mt-1">Price: <span className="text-gray-900 font-medium">${service.price}</span></p>
+              {/* <p className="text-gray-600 mt-1">Price: <span className="text-gray-900 font-medium">${service.price}</span></p> */}
               <button className="mt-3 text-sm text-blue-600 hover:text-blue-800 font-semibold">
                 Book Now →
               </button>
@@ -91,6 +91,7 @@ const ServicesPage = () => {
           </div>
         ))}
       </div>
+      <p className='m-3 p-2 font-semibold text-lg text-blue-600 text-center'>more services coming soon....</p>
     </div>
   );
 

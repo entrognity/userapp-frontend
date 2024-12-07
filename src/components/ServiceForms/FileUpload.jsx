@@ -133,8 +133,8 @@ const FileUpload = ({ formData, onFilesChange }) => {
 
                 <p className="text-sm mt-3 text-gray-500">
                     <span style={{ color: "blue", fontWeight: "bold" }}>Recommended file type is PDF</span> <br />
-                    Allowed files type: <span style={{ color: "blue" }}>PDF, DOC, DOCX.</span> <br />
-                    If yours is a <span style={{ color: "red" }}>PPT, PPTX, JPG, JPEG, PNG</span> convert it to PDF <br />
+                    Allowed files type: <span style={{ color: "blue" }}>PDF.</span> <br />
+                    If yours is a <span style={{ color: "red" }}>DOC, DOCX, PPT, PPTX, JPG, JPEG, PNG</span> convert it to PDF <br />
                     (Max 50MB each, up to 5 files, Total ≤ 200MB)
                 </p>
 

@@ -324,9 +324,8 @@ const CartPage = () => {
                 <div className="flex items-center mr-4">
                   <FileText className="w-8 h-8 text-blue-600" />
                 </div>
-                <div className="flex-grow">
+                <div className="flex-grow font-medium">
                   <p className="text-lg font-medium text-gray-900">{servicesComponents[item.serviceID].name}</p>
-                  <p className="text-lg font-medium text-gray-900">{item.name}</p>
                   <p className="text-gray-700">
                     File(s): {item.files.map((file, index) => (
                       <span key={index}>{file.name}</span>

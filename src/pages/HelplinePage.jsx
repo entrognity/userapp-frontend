@@ -40,8 +40,8 @@ const HelplinePage = () => {
     {
       icon: <Mail className="w-12 h-12 text-red-600" />,
       title: 'Email',
-      details: 'support@pinpaper.in',
-      action: () => window.location.href = 'mailto:support@pinpaper.in'
+      details: 'pinpaper.in@gmail.com',
+      action: () => window.location.href = 'mailto:pinpaper.in@gmail.com'
     }
   ];
 
