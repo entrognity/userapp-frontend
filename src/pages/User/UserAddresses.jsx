@@ -72,7 +72,7 @@ const UserAddresses = () => {
         <div className="mt-16 p-4">
             {/* Address Section */}
             <div className="mb-8">
-                <h3 className="text-lg font-semibold text-gray-800 mb-4">Select Address</h3>
+                <h3 className="text-lg font-semibold text-gray-800 mb-4">Addresses</h3>
                 {addresses.length > 0 ? (
                     <div className="space-y-4">
                         {addresses.map((addr, index) => (

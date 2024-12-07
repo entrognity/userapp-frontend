@@ -496,7 +496,7 @@ const DeliveryPage = () => {
   }, [selectedDeliveryOption, initialTotalPrice]);
 
   const handleAddOrEditAddress = () => {
-    navigate('/account/address', { state: { returnTo: '/delivery' } });
+    navigate('/account/addEditAddress', { state: { returnTo: '/delivery' } });
   };
 
   const handleDeliveryOptionChange = (option) => {
