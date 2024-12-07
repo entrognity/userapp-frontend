@@ -219,6 +219,7 @@ const LoginPageB = () => {
                     setStep("details");
                 } else if (userExists) {
                     navigate("/");
+                    window.location.reload();
                 } else {
                     navigate("/signup");
                 }
