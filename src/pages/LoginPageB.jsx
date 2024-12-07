@@ -187,7 +187,7 @@ const LoginPageB = () => {
             if (data.status === "success") {
                 setStep("otp");
             } else {
-                setError(data.error || "Failed to send OTP. Please try again.");
+                setError(data.error || "Failed to send OTP. Please try again later.");
             }
         } catch (err) {
             setError("An error occurred while sending OTP. Please try again.");
