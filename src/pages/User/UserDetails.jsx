@@ -32,10 +32,12 @@ const UserDetails = () => {
         event.preventDefault(); // Prevent default form submission behavior
 
         try {
+            console.log("hereeeeeeee");
             const response = await Api.post("/api/v1/user/updateUser", { 
                 name, 
                 email
             });
+            console.log(response);
 
             if (response.status !== 200) {
                 throw new Error(`Failed to update user details. Status code: ${response.status}`);

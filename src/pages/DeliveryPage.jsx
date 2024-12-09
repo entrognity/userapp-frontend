@@ -428,15 +428,17 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { useUser } from '../contexts/UserContext';
 import { useAlert } from '../contexts/AlertContext';
 import { useCart } from '../contexts/CartContext';
-import { MapPin, FileText } from 'lucide-react';
+import { MapPin } from 'lucide-react';
+import { useLoading } from '../contexts/LoadingContext';
 import Api from '../Api';
 
 const DeliveryPage = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const { showAlert } = useAlert();
-  const { user, fetchUserAddress, address } = useUser();
+  const { address } = useUser();
   const { setCartItems } = useCart();
+  const { showLoading, hideLoading } = useLoading();
 
   const { orderData } = location.state || {};
   const { items: cartItems = [], totalPrice: initialTotalPrice = 0 } = orderData || {};
@@ -515,6 +517,7 @@ const DeliveryPage = () => {
     }
 
     setLoading(true);
+    showLoading("Booking Order");
 
     // Prepare the payload
     const payload = {
@@ -548,6 +551,8 @@ const DeliveryPage = () => {
         
         // clear cartitems at client
         setCartItems([]);
+
+        hideLoading();
         
         // next navigation
         navigate('/orderSuccess', { state: {orderData} });

@@ -104,6 +104,10 @@ export const CartProvider = ({ children }) => {
   // Remove an item from the cart
   const removeItemFromCart = useCallback(
     async (itemId) => {
+
+      const confirmDelete = window.confirm("Are you sure you want to delete this item?");
+      if (!confirmDelete) return;
+
       try {
         // await axios.delete(
         //   `${process.env.REACT_APP_BASEURL}/api/v1/cart/deleteCartItem?articleID=${itemId}`
@@ -111,7 +115,7 @@ export const CartProvider = ({ children }) => {
         await Api.delete(
           `/api/v1/cart/deleteCartItem?articleID=${itemId}`
         );
-        
+
         setCartItems((prevItems) =>
           prevItems.filter((item) => item.articleID !== itemId)
         );

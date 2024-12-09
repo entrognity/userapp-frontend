@@ -158,6 +158,7 @@ import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import Api from "../Api";
 import { useAuth } from "../contexts/AuthContext";
+import { useLoading } from "../contexts/LoadingContext";
 
 const LoginPageB = () => {
     const [step, setStep] = useState("phone");
@@ -169,8 +170,10 @@ const LoginPageB = () => {
     const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
     const { setAuthState } = useAuth();
+    const {showLoading, hideLoading} = useLoading();
 
     const handlePhoneSubmit = async (e) => {
+        showLoading("Sending OTP");
         e.preventDefault();
         setError(""); // Reset errors
         setIsLoading(true); // Show loading state
@@ -185,18 +188,23 @@ const LoginPageB = () => {
             const data = await response.json();
 
             if (data.status === "success") {
+                hideLoading();
                 setStep("otp");
             } else {
+                hideLoading();
                 setError(data.error || "Failed to send OTP. Please try again later.");
             }
         } catch (err) {
+            hideLoading();
             setError("An error occurred while sending OTP. Please try again.");
         } finally {
+            hideLoading();
             setIsLoading(false); // Remove loading state
         }
     };
 
     const handleOtpSubmit = async (e) => {
+        showLoading("Verifying OTP");
         e.preventDefault();
         if(otp.length != 4){
             return setError("Please enter a valid OTP")
@@ -214,7 +222,7 @@ const LoginPageB = () => {
 
             if (data.status === "success") {
                 const { userExists, isDetailSetup } = data;
-
+                hideLoading();
                 if (!isDetailSetup) {
                     setStep("details");
                 } else if (userExists) {
@@ -224,16 +232,20 @@ const LoginPageB = () => {
                     navigate("/signup");
                 }
             } else {
+                hideLoading();
                 setError("Invalid OTP. Please try again.");
             }
         } catch (err) {
+            hideLoading();
             setError("An error occurred while verifying OTP. Please try again.");
         } finally {
+            hideLoading();
             setIsLoading(false); // Remove loading state
         }
     };
 
     const handleDetailsSubmit = async (e) => {
+        showLoading("Submitting details");
         e.preventDefault();
         setError(""); // Reset errors
         setIsLoading(true); // Show loading state
@@ -246,6 +258,7 @@ const LoginPageB = () => {
             });
             const data = await response.data;
             console.log(data);
+            hideLoading();
 
             if (data.status === "success") {
                 navigate("/"); // Redirect to home page after setting details
@@ -254,9 +267,11 @@ const LoginPageB = () => {
                 setError(data.error || "Failed to set up details. Please try again.");
             }
         } catch (err) {
+            hideLoading();
             console.log(err);
             setError("An error occurred while submitting details. Please try again.");
         } finally {
+            hideLoading();
             setIsLoading(false); // Remove loading state
         }
     };
