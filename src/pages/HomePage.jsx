@@ -248,10 +248,10 @@ const HomePage = () => {
             Upload, Print, Deliver
           </h1>
           <p className="text-xl md:text-2xl mb-8 max-w-5xl mx-auto">
-            Upload your documents, get them printed professionally, and delivered to your doorstep. <br /> 
+            Upload your documents, get them printed professionally, and delivered to your doorstep. <br />
             Fast, affordable, and hassle-free.
           </p>
-          <button 
+          <button
             onClick={() => navigate('/services')}
             className="bg-white text-blue-700 hover:bg-blue-100 px-8 py-3 rounded-full text-lg font-semibold transition transform hover:scale-105 shadow-lg"
           >
@@ -265,8 +265,8 @@ const HomePage = () => {
       <div className="container mx-auto px-4 py-16">
         <div className="grid md:grid-cols-3 gap-8">
           {features.map((feature, index) => (
-            <div 
-              key={index} 
+            <div
+              key={index}
               className="bg-white p-6 rounded-lg shadow-lg text-center hover:shadow-xl transition-all duration-300"
             >
               <div className="flex justify-center mb-4">
@@ -323,11 +323,26 @@ const HomePage = () => {
             Your Documents, Our Responsibility
           </h3>
           <p className="text-gray-600 max-w-2xl mx-auto">
-            We guarantee confidentiality, secure handling, and high-quality prints. 
+            We guarantee confidentiality, secure handling, and high-quality prints.
             Your documents are treated with the utmost care and professionalism.
           </p>
         </div>
       </div>
+
+      {/* Footer Section
+      <footer className="bg-gray-800 text-gray-200 py-6">
+        <div className="container mx-auto flex justify-center space-x-6 text-sm">
+          <button onClick={() => navigate('/termsAndConditions')} className="hover:text-white">
+            Terms & Conditions
+          </button>
+          <button onClick={() => navigate('/cancellationAndRefund')} className="hover:text-white">
+            Cancellation & Refund Policy
+          </button>
+          <button onClick={() => navigate('/contactUs')} className="hover:text-white">
+            Contact Us
+          </button>
+        </div>
+      </footer> */}
     </div>
   );
 };

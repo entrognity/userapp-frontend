@@ -30,7 +30,9 @@ import OrdersPage from './pages/OrdersPage';
 import OrderDetailsPage from './pages/OrderDetailsPage';
 import HelplinePage from './pages/HelplinePage';
 import OrderSuccess from './pages/OrderSuccess';
-
+import TermsAndConditions from './pages/TermsAndConditions';
+import CancellationRefundPolicy from './pages/CancellationAndRefund';
+import ContactUs from './pages/ContactUs';
 
 
 
@@ -54,6 +56,9 @@ const App = () => {
                         <Route path="/login" element={<LoginPageB />} />
                         <Route path="/services" element={<ServicesPage />} />
                         <Route path="/helpline" element={<HelplinePage />} />
+                        <Route path="/termsAndConditions" element={<TermsAndConditions />} />
+                        <Route path="/cancellationAndRefund" element={<CancellationRefundPolicy />} />
+                        <Route path="/contactUs" element={<ContactUs />} />
 
                         {/* Protected Routes
                       <Route element={<ProtectedRoute />}>

@@ -38,6 +38,28 @@ const AccountPage = () => {
         </div>
       </div>
 
+      {/* Links to Policies */}
+      <div className="mt-6 space-y-3">
+        <button
+          className="block px-4 py-2 text-left w-full bg-blue-50 border rounded-lg hover:bg-blue-100 text-blue-700 hover:text-blue-700 transition-all duration-200 shadow-md"
+          onClick={() => navigate('/termsAndConditions')}
+        >
+          Terms & Conditions
+        </button>
+        <button
+          className="block px-4 py-2 text-left w-full bg-blue-50 border rounded-lg hover:bg-blue-100 text-blue-700 hover:text-blue-700 transition-all duration-200 shadow-md"
+          onClick={() => navigate('/cancellationAndRefund')}
+        >
+          Cancellation & Refund Policy
+        </button>
+        <button
+          className="block px-4 py-2 text-left w-full bg-blue-50 border rounded-lg hover:bg-blue-100 text-blue-700 hover:text-blue-700 transition-all duration-200 shadow-md"
+          onClick={() => navigate('/contactUs')}
+        >
+          Contact Us
+        </button>
+      </div>
+
       <button
         className=" bg-blue-600 text-white mt-4 px-4 py-2 rounded-lg shadow-lg hover:bg-blue-700 transition duration-150"
         onClick={logout}
