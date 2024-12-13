@@ -11,6 +11,17 @@ const ContactUs = () => {
         </p>
 
         <div className="space-y-6">
+
+          <div className="flex items-start space-x-4">
+            <User className="w-8 h-8 text-blue-600" />
+            <div>
+              <h2 className="text-xl font-semibold text-gray-800">Legal entity name</h2>
+              <p className="text-gray-600">
+                Mohammed Misbahuddin
+              </p>
+            </div>
+          </div>
+
           <div className="flex items-start space-x-4">
             <MapPin className="w-8 h-8 text-blue-600" />
             <div>
